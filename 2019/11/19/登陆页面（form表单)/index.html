@@ -6,19 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>jsp知识梳理； | Hexo</title>
+  <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="jsp  梳理回顾前端开发：HTML、CSS、JS(JavaScript) 企业中前端工程师：使用前端框架(BootStrap/easyUI/VUE/Angular)开发。 后端开发：JavaSE、JSP、JavaWeb(良好的稳定性、健壮性优于其它语言。企业级应用首选之一) 企业中的后端工程师：使用后端框架(SpringMVC/Struts2、Spring、myBatis)开发。 “全栈工程师”">
+  <meta name="description" content="JSP登录1.Servlet方式整体流程：登录页面提交(get/post方式)form表单数据到一个Servlet，在其内进行判定是否登录。-(1)Servlet中的doPost()方法： A.用Request.getParameter(“[input标签的name属性名]”)方法获取登录页面提交过来的表单数据。 B.通过sql的JDBC的Jar包导入，进行数据库连接(连接代码见以往的连接代码)，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="jsp知识梳理；">
-<meta property="og:url" content="http://yoursite.com/2019/10/21/jsp知识梳理/index.html">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2019/11/19/登陆页面（form表单)/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="jsp  梳理回顾前端开发：HTML、CSS、JS(JavaScript) 企业中前端工程师：使用前端框架(BootStrap/easyUI/VUE/Angular)开发。 后端开发：JavaSE、JSP、JavaWeb(良好的稳定性、健壮性优于其它语言。企业级应用首选之一) 企业中的后端工程师：使用后端框架(SpringMVC/Struts2、Spring、myBatis)开发。 “全栈工程师”">
+<meta property="og:description" content="JSP登录1.Servlet方式整体流程：登录页面提交(get/post方式)form表单数据到一个Servlet，在其内进行判定是否登录。-(1)Servlet中的doPost()方法： A.用Request.getParameter(“[input标签的name属性名]”)方法获取登录页面提交过来的表单数据。 B.通过sql的JDBC的Jar包导入，进行数据库连接(连接代码见以往的连接代码)，">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-21T11:05:19.796Z">
+<meta property="og:image" content="https://user-images.githubusercontent.com/55863658/69299541-bcedc100-0c4b-11ea-856f-c6e7b22e3816.jpeg">
+<meta property="og:updated_time" content="2019-11-21T02:53:55.931Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jsp知识梳理；">
-<meta name="twitter:description" content="jsp  梳理回顾前端开发：HTML、CSS、JS(JavaScript) 企业中前端工程师：使用前端框架(BootStrap/easyUI/VUE/Angular)开发。 后端开发：JavaSE、JSP、JavaWeb(良好的稳定性、健壮性优于其它语言。企业级应用首选之一) 企业中的后端工程师：使用后端框架(SpringMVC/Struts2、Spring、myBatis)开发。 “全栈工程师”">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="JSP登录1.Servlet方式整体流程：登录页面提交(get/post方式)form表单数据到一个Servlet，在其内进行判定是否登录。-(1)Servlet中的doPost()方法： A.用Request.getParameter(“[input标签的name属性名]”)方法获取登录页面提交过来的表单数据。 B.通过sql的JDBC的Jar包导入，进行数据库连接(连接代码见以往的连接代码)，">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/55863658/69299541-bcedc100-0c4b-11ea-856f-c6e7b22e3816.jpeg">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -154,45 +156,72 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-jsp知识梳理" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-登陆页面（form表单)" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      jsp知识梳理；
-    </h1>
-  
-
-        
-        <a href="/2019/10/21/jsp知识梳理/" class="archive-article-date">
-  	<time datetime="2019-10-21T11:00:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-21</time>
-</a>
-        
-      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="jsp"><a href="#jsp" class="headerlink" title="jsp  "></a>jsp  </h1><p>梳理回顾<br>前端开发：HTML、CSS、JS(JavaScript) 企业中前端工程师：使用前端框架(BootStrap/easyUI/VUE/Angular)开发。<br> 后端开发：JavaSE、JSP、JavaWeb(良好的稳定性、健壮性优于其它语言。企业级应用首选之一)<br> 企业中的后端工程师：使用后端框架(SpringMVC/Struts2、Spring、myBatis)开发。 “全栈工程师” C语言:工业控制、嵌入式设备(电磁炉、吸尘器、微波炉。。。)。<br> jsp JSP<br> 项目是在后台开发框架成熟前使用较多的一种JavaWeb技术，后期会逐渐过度到后台框架。 jvm只能处理 java编译的class文件。<br> JSP和后台框架 核心技术均为Servlet Servlet在jdk中的包为：javax.servlet.http.HttpServlet。<br>Servlet</p>
-<pre><code>1. jsp和servlet的区别和联系：</code></pre><blockquote>
-<pre><code>1). jsp经编译后就变成了Servlet. (JSP的本质就是Servlet，JVM只能识别java 的类(.class)，不能识别JSP的代码,Web容器将JSP的代码编译成JVM能够识别的java类)</code></pre><blockquote>
-<pre><code>2).jsp更擅长表现于 页面显示,servlet更擅长于逻辑控制. </code></pre><blockquote>
-<p>   3).Servlet中没有内置对象，Jsp中的内置对象都是必须通过 HttpServletRequest对象，HttpServletResponse对象以及HttpServlet对象得到. Jsp是Servlet的一种简化， 使用Jsp只需要完成程序员需要输出到客户端的内容，Jsp中的Java脚本如何镶嵌到一个类中，由Jsp容器 完成。</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<ul>
-<li>而Servlet则是个完整的Java类，这个类的Service方法用于生成对客户端的响应。 2. 联系： JSP是Servlet技术的扩展，本质上就是Servlet的简易方式。JSP编译后是“类servlet”。   <pre><code>Servlet和JSP最主要的不同点在于： Servlet的应用逻辑是在Java文件中，并且完全从表示层中的HTML里分离开来。（jsp里面是有html标签， servlet没有html标签） 而JSP的情况是Java和HTML可以组合成一个扩展名为.jsp的文件。(JSP=java类+HTML) JSP侧重于视图，Servlet主要用于控制逻辑。(JSP不能脱离Servlet，但Servelet可独立存在) Servlet更多的是类似于一个Controller，用来做控制。</code></pre></li>
-</ul>
-<pre><code>servlet类中的方法 servlet中的方法 doGet()方法：用get方式传输网络数据 get方式：明文传参(地址栏显示)、传输数据较小、</code></pre><p>#课堂笔记1021.md 10/21/2019  </p>
-<p>doPost()方法：用post方式传输网络数据 post方式：暗文传参(地址栏不显示)、传输数据较大、<br>页面跳转方式<br>页面跳转的方式分类： </p>
-<ol>
-<li>转发：foward(地址栏URL不变)<br>request.getRequestDispatcher(“hello.jsp”).forward(request，response);//页面转发</li>
-<li>重定向：redirect(地址栏URL变化)<br>response.sendRedirect(“资源的URL”); </li>
-<li>两种跳转方式异同： 转发使用的是getRequestDispatcher()方法;重定向使用的是sendRedirect(); 转发：浏览器URL的地址栏不变。重定向：浏览器URL的地址栏改变；<br>转发是服务器行为，重定向是客户端行为；<br>转发是浏览器只做了一次访问请求。重定向是浏览器做了至少两次的访问请求； 转发2次跳转之间传输的信息不会丢失，重定向2次跳转之间传输的信息会丢失（request范围）。</li>
-</ol>
-
+        <h1 id="JSP登录"><a href="#JSP登录" class="headerlink" title="JSP登录"></a>JSP登录</h1><p>1.Servlet方式<br>整体流程：登录页面提交(get/post方式)form表单数据到一个Servlet，在其内进行判定是否登录。<br>-<br>(1)Servlet中的doPost()方法：</p>
+<p>A.用Request.getParameter(“[input标签的name属性名]”)方法获取登录页面提交过来的表单数据。</p>
+<p>B.通过sql的JDBC的Jar包导入，进行数据库连接(连接代码见以往的连接代码)，用sql(类似于select * from user where id =’’, pwd=’’;)查询语句。</p>
+<p> C.比对判定以上两项的数据，页面跳转(“转发”和”重定向”两种方式取其一)。</p>
+<p>(2)跳转到的页面：登录成功页面/不跳转</p>
+<h2 id="2-表单提交数据到JSP的方式"><a href="#2-表单提交数据到JSP的方式" class="headerlink" title="2.表单提交数据到JSP的方式"></a>2.表单提交数据到JSP的方式</h2><p>整体流程：登录页面提交form表单(get或post方式到action指定的位置)的数据到一个JSP，在其内进行判定是否登录。</p>
+<p>(1)JSP中的&lt;% %&gt;脚本内容：<br> A.用Request.getParameter(“[input标签的name属性名]”)方法获取登录页面提交过来的表单数据。</p>
+<p> B.通过sql的JDBC的Jar包导入，进行数据库连接(连接代码见以往的连接代码)，用sql(类似于select * from user where id =’’, pwd=’’;)查询语句。</p>
+<p>C.比对判定以上两项的数据，页面跳转(“转发”和”重定向”两种方式取其一)。1</p>
+<p>(2)跳转到的页面：登录成功页面(在Session中保存用户信息)/重定向到登录JSP页面，为地址栏添加一个属性(response.sendRedirect(“index.jsp?info=”登录失败”))</p>
+<p><img src="https://user-images.githubusercontent.com/55863658/69299541-bcedc100-0c4b-11ea-856f-c6e7b22e3816.jpeg" alt="d82269722a7f8c0cee7de485e1d1ab5a"><br>//登录成功<br>    response.sendRedirect(“/success.jsp”);</p>
+<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot; pageEncoding=&quot;UTF-8&quot;%&gt;
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;
+&lt;title&gt;欢迎页面&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;%
+//从Request获取id、pwd、name的值
+String id= request.getParameter(&quot;id&quot;);
+String pwd= request.getParameter(&quot;pwd&quot;);
+String name= request.getParamete(&quot;name&quot;);
+//获取Session对象
+String path = request.getContextPath();
+HttpSession session=request.getSession();
+//向Session对象内放属性
+session.setAttribute(&quot;id&quot;, id);
+session.setAttribute(&quot;pwd&quot;, pwd);
+session.setAttribute(&quot;name&quot;, name);
+//页面输出
+out.println(&quot;&lt;span&gt;欢迎&quot;+name+&quot;登录&lt;/span&gt;&quot;);  
+//注销链接
+&lt;a href=&quot;out.jsp&quot;&gt;注销&lt;/a&gt;
+%&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><p>注销页面(out.jsp)如下：</p>
+<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot; pageEncoding=&quot;UTF-8&quot;%&gt;
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;%
+//获取Session对象
+String path = request.getContextPath();
+HttpSession session=request.getSession();
+//清空Session中的登录信息相关属性
+session.removeAttribute(&quot;id&quot;);
+session.removeAttribute(&quot;pwd&quot;);
+session.removeAttribute(&quot;name&quot;);
+//上下文路径
+String path = request.getContextPath();
+//重定向到首页(未登录状态)
+response.sendRedirect(path+&quot;/index.jsp&quot;);
+%&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
       
 
       
@@ -271,7 +300,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/10/21/jsp知识梳理/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/11/19/登陆页面（form表单)/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -285,7 +314,7 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/10/24/jsp实现登录功能/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/11/21/JSP登录流程及注销/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
@@ -295,8 +324,8 @@
     </a>
   
   
-    <a href="/2019/10/14/数据库——增删改查/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">数据库——增删改查</div>
+    <a href="/2019/11/06/Tips_JSP_Eclipse下config.json文件第一行报错解决方案/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
       <i class="icon-circle-right"></i>
     </a>
   

@@ -152,6 +152,222 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-JSP登录流程及注销" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JSP登录"><a href="#JSP登录" class="headerlink" title="JSP登录"></a>JSP登录</h1><p>1.表单提交数据到Servlet的方式<br>整体流程：登录页面提交form表单(get或post方式到action指定的位置)的数据到一个Servlet，在其内进行判定是否登录。<br>(1)Servlet中的doPost()方法：</p>
+<pre><code>A.用Request.getParameter(&quot;[input标签的name属性名]&quot;)方法获取登录页面提交过来的表单数据。
+B.通过sql的JDBC的Jar包导入，进行数据库连接(连接代码见以往的连接代码)，用sql(类似于select * from user where id =&apos;&apos;, pwd=&apos;&apos;;)查询语句。
+C.比对判定以上两项的数据，页面跳转(&quot;转发&quot;和&quot;重定向&quot;两种方式取其一)。</code></pre><p>(2)跳转到的页面：登录成功页面(在Session中保存用户信息)/不跳转</p>
+<p>2.表单提交数据到JSP的方式<br>整体流程：登录页面提交form表单(get或post方式到action指定的位置)的数据到一个JSP，在其内进行判定是否登录。</p>
+<p>(1)JSP中的&lt;% %&gt;脚本内容：</p>
+<pre><code>A.用Request.getParameter(&quot;[input标签的name属性名]&quot;)方法获取登录页面提交过来的表单数据。
+B.通过sql的JDBC的Jar包导入，进行数据库连接(连接代码见以往的连接代码)，用sql(类似于select * from user where id =&apos;&apos;, pwd=&apos;&apos;;)查询语句。
+C.比对判定以上两项的数据，页面跳转(&quot;转发&quot;和&quot;重定向&quot;两种方式取其一)。</code></pre><p>(2)跳转到的页面：登录成功页面(在Session中保存用户信息)/重定向到登录JSP页面，为地址栏添加一个属性(response.sendRedirect(“index.jsp?info=”登录失败”))</p>
+<p><img src="https://user-images.githubusercontent.com/55863658/69299541-bcedc100-0c4b-11ea-856f-c6e7b22e3816.jpeg" alt="d82269722a7f8c0cee7de485e1d1ab5a"></p>
+<p>//登录成功页面如下：</p>
+<p>response.sendRedirect(“/success.jsp”);</p>
+<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot; pageEncoding=&quot;UTF-8&quot;%&gt;
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;
+
+&lt;title&gt;欢迎页面&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;%
+//从Request获取id、pwd、name的值
+String id= request.getParameter(&quot;id&quot;);
+String pwd= request.getParameter(&quot;pwd&quot;);
+String name= request.getParamete(&quot;name&quot;);
+//获取Session对象
+String path = request.getContextPath();
+HttpSession session=request.getSession();
+//向Session对象内放属性
+session.setAttribute(&quot;id&quot;, id);
+session.setAttribute(&quot;pwd&quot;, pwd);
+session.setAttribute(&quot;name&quot;, name);
+//页面输出
+out.println(&quot;&lt;span&gt;欢迎&quot;+name+&quot;登录&lt;/span&gt;&quot;);  
+//注销链接
+&lt;a href=&quot;out.jsp&quot;&gt;注销&lt;/a&gt;
+%&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><p>注销页面(out.jsp)如下：</p>
+<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot; pageEncoding=&quot;UTF-8&quot;%&gt;
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;%
+//获取Session对象
+String path = request.getContextPath();
+HttpSession session=request.getSession();
+//清空Session中的登录信息相关属性
+    session.removeAttribute(&quot;id&quot;);
+    session.removeAttribute(&quot;pwd&quot;);
+    session.removeAttribute(&quot;name&quot;);
+//上下文路径
+String path = request.getContextPath();
+//重定向到首页(未登录状态)
+response.sendRedirect(path+&quot;/index.jsp&quot;);
+%&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/21/JSP登录流程及注销/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-登陆页面（form表单)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JSP登录"><a href="#JSP登录" class="headerlink" title="JSP登录"></a>JSP登录</h1><p>1.Servlet方式<br>整体流程：登录页面提交(get/post方式)form表单数据到一个Servlet，在其内进行判定是否登录。<br>-<br>(1)Servlet中的doPost()方法：</p>
+<p>A.用Request.getParameter(“[input标签的name属性名]”)方法获取登录页面提交过来的表单数据。</p>
+<p>B.通过sql的JDBC的Jar包导入，进行数据库连接(连接代码见以往的连接代码)，用sql(类似于select * from user where id =’’, pwd=’’;)查询语句。</p>
+<p> C.比对判定以上两项的数据，页面跳转(“转发”和”重定向”两种方式取其一)。</p>
+<p>(2)跳转到的页面：登录成功页面/不跳转</p>
+<h2 id="2-表单提交数据到JSP的方式"><a href="#2-表单提交数据到JSP的方式" class="headerlink" title="2.表单提交数据到JSP的方式"></a>2.表单提交数据到JSP的方式</h2><p>整体流程：登录页面提交form表单(get或post方式到action指定的位置)的数据到一个JSP，在其内进行判定是否登录。</p>
+<p>(1)JSP中的&lt;% %&gt;脚本内容：<br> A.用Request.getParameter(“[input标签的name属性名]”)方法获取登录页面提交过来的表单数据。</p>
+<p> B.通过sql的JDBC的Jar包导入，进行数据库连接(连接代码见以往的连接代码)，用sql(类似于select * from user where id =’’, pwd=’’;)查询语句。</p>
+<p>C.比对判定以上两项的数据，页面跳转(“转发”和”重定向”两种方式取其一)。1</p>
+<p>(2)跳转到的页面：登录成功页面(在Session中保存用户信息)/重定向到登录JSP页面，为地址栏添加一个属性(response.sendRedirect(“index.jsp?info=”登录失败”))</p>
+<p><img src="https://user-images.githubusercontent.com/55863658/69299541-bcedc100-0c4b-11ea-856f-c6e7b22e3816.jpeg" alt="d82269722a7f8c0cee7de485e1d1ab5a"><br>//登录成功<br>    response.sendRedirect(“/success.jsp”);</p>
+<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot; pageEncoding=&quot;UTF-8&quot;%&gt;
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;
+&lt;title&gt;欢迎页面&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;%
+//从Request获取id、pwd、name的值
+String id= request.getParameter(&quot;id&quot;);
+String pwd= request.getParameter(&quot;pwd&quot;);
+String name= request.getParamete(&quot;name&quot;);
+//获取Session对象
+String path = request.getContextPath();
+HttpSession session=request.getSession();
+//向Session对象内放属性
+session.setAttribute(&quot;id&quot;, id);
+session.setAttribute(&quot;pwd&quot;, pwd);
+session.setAttribute(&quot;name&quot;, name);
+//页面输出
+out.println(&quot;&lt;span&gt;欢迎&quot;+name+&quot;登录&lt;/span&gt;&quot;);  
+//注销链接
+&lt;a href=&quot;out.jsp&quot;&gt;注销&lt;/a&gt;
+%&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><p>注销页面(out.jsp)如下：</p>
+<pre><code>&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot; pageEncoding=&quot;UTF-8&quot;%&gt;
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;%
+//获取Session对象
+String path = request.getContextPath();
+HttpSession session=request.getSession();
+//清空Session中的登录信息相关属性
+session.removeAttribute(&quot;id&quot;);
+session.removeAttribute(&quot;pwd&quot;);
+session.removeAttribute(&quot;name&quot;);
+//上下文路径
+String path = request.getContextPath();
+//重定向到首页(未登录状态)
+response.sendRedirect(path+&quot;/index.jsp&quot;);
+%&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/19/登陆页面（form表单)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Tips_JSP_Eclipse下config.json文件第一行报错解决方案" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -436,19 +652,19 @@
 
 
   
-    <article id="post-service和jsp的区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-jsp和servlet的区别和联系" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/28/service和jsp的区别/">service和jsp的区别</a>
+      <a class="article-title" href="/2019/10/28/jsp和servlet的区别和联系/">service和jsp的区别</a>
     </h1>
   
 
         
-        <a href="/2019/10/28/service和jsp的区别/" class="archive-article-date">
+        <a href="/2019/10/28/jsp和servlet的区别和联系/" class="archive-article-date">
   	<time datetime="2019-10-28T01:31:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-28</time>
 </a>
         
@@ -456,11 +672,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="区别："><a href="#区别：" class="headerlink" title="区别："></a>区别：</h1><pre><code>1)JSP是在HTML代码里写JAVA代码,框架是HTML;而Servlet是在JAVA代码中写HTML代码，本身是个JAVA类。
-2)JSP使人们把显示和逻辑分隔成为可能，这意味着两者的开发可并行进行；而Servlet并没有把两者分开。
-3)Servlet独立地处理静态表示逻辑与动态业务逻辑.这样,任何文件的变动都需要对此服务程序重新编译;JSP允许用特殊标签直接嵌入到HTML页面, HTML内容与JAVA内容也可放在单独文件中,HTML内容的任何变动会自动编译装入到服务程序.
-4)Servlet需要在web.xml中配置，而JSP无需配置。
-5)目前JSP主要用在视图层，负责显示，而Servlet主要用在控制层，负责调度</code></pre><h1 id="联系："><a href="#联系：" class="headerlink" title="联系："></a>联系：</h1><pre><code>1)都是Sun公司推出的动态网页技术。
+        <h2 id="jsp"><a href="#jsp" class="headerlink" title="jsp  "></a>jsp  </h2><p>前端开发：HTML、CSS、JS(JavaScript) 企业中前端工程师：使用前端框架(BootStrap/easyUI/VUE/Angular)开发。<br> 后端开发：JavaSE、JSP、JavaWeb(良好的稳定性、健壮性优于其它语言。企业级应用首选之一)<br> 企业中的后端工程师：使用后端框架(SpringMVC/Struts2、Spring、myBatis)开发。 “全栈工程师” C语言:工业控制、嵌入式设备(电磁炉、吸尘器、微波炉。。。)。<br> jsp JSP项目是在后台开发框架成熟前使用较多的一种JavaWeb技术，后期会逐渐过度到后台框架。 jvm只能处理 java编译的class文件。<br> JSP和后台框架 核心技术均为Servlet Servlet在jdk中的包为：javax.servlet.http.HttpServlet。<br>Servlet</p>
+<h2 id="1-jsp和servlet的区别和联系："><a href="#1-jsp和servlet的区别和联系：" class="headerlink" title="1. jsp和servlet的区别和联系："></a>1. jsp和servlet的区别和联系：</h2><p>-<br>           1). jsp经编译后就变成了Servlet. (JSP的本质就是Servlet，JVM只能识别java 的类(.class)，不能识别JSP的代码,Web容器将JSP的代码编译成JVM能够识别的java类)<br>            2).jsp更擅长表现于 页面显示,servlet更擅长于逻辑控制.<br>            3).Servlet中没有内置对象，Jsp中的内置对象都是必须通过 HttpServletRequest对象，HttpServletResponse对象以及HttpServlet对象得到. Jsp是Servlet的一种简化， 使用Jsp只需要完成程序员需要输出到客户端的内容，Jsp中的Java脚本如何镶嵌到一个类中，由Jsp容器 完成。<br>             而Servlet则是个完整的Java类，这个类的Service方法用于生成对客户端的响应。 2. 联系： JSP是Servlet技术的扩展，本质上就是Servlet的简易方式。JSP编译后是“类servlet”。<br>             Servlet和JSP最主要的不同点在于： Servlet的应用逻辑是在Java文件中，并且完全从表示层中的HTML里分离开来。（jsp里面是有html标签， servlet没有html标签） 而JSP的情况是Java和HTML可以组合成一个扩展名为.jsp的文件。(JSP=java类+HTML) JSP侧重于视图，Servlet主要用于控制逻辑。(JSP不能脱离Servlet，但Servelet可独立存在) Servlet更多的是类似于一个Controller，用来做控制。</p>
+<h2 id="servlet类中的方法"><a href="#servlet类中的方法" class="headerlink" title="servlet类中的方法"></a>servlet类中的方法</h2><p>-</p>
+<h3 id="servlet中的方法"><a href="#servlet中的方法" class="headerlink" title="servlet中的方法"></a>servlet中的方法</h3><p>doGet()方法：用get方式传输网络数据 get方式：明文传参(地址栏显示)、传输数据较小、</p>
+<p>doPost()方法：用post方式传输网络数据 post方式：暗文传参(地址栏不显示)、传输数据较大、<br>页面跳转方式<br>页面跳转的方式分类： </p>
+<ol>
+<li>转发：foward(地址栏URL不变)<br>request.getRequestDispatcher(“hello.jsp”).forward(request，response);//页面转发</li>
+<li>重定向：redirect(地址栏URL变化)<br>response.sendRedirect(“资源的URL”); </li>
+<li>两种跳转方式异同： 转发使用的是getRequestDispatcher()方法;重定向使用的是sendRedirect(); 转发：浏览器URL的地址栏不变。重定向：浏览器URL的地址栏改变；<br>转发是服务器行为，重定向是客户端行为；<br>转发是浏览器只做了一次访问请求。重定向是浏览器做了至少两次的访问请求； 转发2次跳转之间传输的信息不会丢失，重定向2次跳转之间传输的信息会丢失（request范围）。<h1 id="区别："><a href="#区别：" class="headerlink" title="区别："></a>区别：</h1> 1)JSP是在HTML代码里写JAVA代码,框架是HTML;而Servlet是在JAVA代码中写HTML代码，本身是个JAVA类。<br> 2)JSP使人们把显示和逻辑分隔成为可能，这意味着两者的开发可并行进行；而Servlet并没有把两者分开。<br> 3)Servlet独立地处理静态表示逻辑与动态业务逻辑.这样,任何文件的变动都需要对此服务程序重新编译;JSP允许用特殊标签直接嵌入到HTML页面, HTML内容与JAVA内容也可放在单独文件中,HTML内容的任何变动会自动编译装入到服务程序.<br> 4)Servlet需要在web.xml中配置，而JSP无需配置。<br> 5)目前JSP主要用在视图层，负责显示，而Servlet主要用在控制层，负责调度</li>
+</ol>
+<h1 id="联系："><a href="#联系：" class="headerlink" title="联系："></a>联系：</h1><pre><code>1)都是Sun公司推出的动态网页技术。
 2)先有Servlet，针对Servlet缺点推出JSP。JSP是Servlet的一种特殊形式，每个JSP页面就是一个Servlet实例——JSP页面由系统翻译成Servlet，Servlet再负责响应用户请求。</code></pre><h1 id="JSP-Servlet"><a href="#JSP-Servlet" class="headerlink" title="JSP/Servlet"></a>JSP/Servlet</h1><p>一、相同点：<br>1.都可处理后端的逻辑控制，作为MVC控制。<br>2.都有九大内置对象(request,response,session,application,out,pagecontext,config,page,exception)，内置对象作用域(page、request/response、session、application)。<br>3.都可用JAVA语言。<br>二、不同点：<br>1.JSP常用于小型的项目，Servlet常用于框架类大型项目。<br>2.JSP可作为前段显示界面，Servlet用于后台逻辑控制。<br>3.JSP可嵌套JSTL，JAVA,EL,HTML,Servlet只能使用JAVA。<br>4.JSP控制不需要项目中去注册，Servlet必须注册。                        </p>
 <p> JSP九大内置对象和四大作用域和Servlet的三大作用域对象<br>一、JSP九大内置对象：内置对象（又叫隐含对象，有9个内置对象）:不需要预先声明就可以在脚本代码和表达式中随意使用</p>
 <p>内置对象特点:</p>
@@ -485,8 +707,62 @@ Servlet对象:page对象、config对象
 <p>Application(ServletContext)：存储了运行JSP页面的servlet以及在同一应用程序中的任何Web组件的上下文信息。</p>
 <p>Page(Object)：表示当前JSP页面的servlet实例</p>
 <p>Config(ServletConfig)：该对象用于存取servlet实例的初始化参数。</p>
-<p>Exception(Throwable)：在某个页面抛出异常时,将转发至JSP错误页面,提供此对象是为了在JSP中处理错误。只有在错误页面中才可使用&lt;%@page isErrorPage=“true”%&gt;<br>Jsp内置对象     功能     主要方法<br>out     向客户端输出数据     print() println() flush() clear() isAutoFlush() getBufferSize() close() …………<br>request     向客户端请求数据     getAttributeNames() getCookies() getParameter() getParameterValues() setAttribute() getServletPath() …………<br>response     封装了jsp产生的响应,然后被发送到客户端以响应客户的请求     addCookie() sendRedirect() setContentType() flushBuffer() getBufferSize() getOutputStream() sendError() containsHeader()……………<br>application     Gryffindor     90<br>config     表示Servlet的配置,当一个Servlet初始化时,容器把某些信息通过此对象传递给这个Servlet     getServletContext() getServletName() getInitParameter() getInitParameterNames()……………<br>page     Jsp实现类的实例,它是jsp本身,通过这个可以对它进行访问     flush()………<br>pagecontext     为JSP页面包装页面的上下文。管理对属于JSP中特殊可见部分中己经命名对象的该问     forward() getAttribute() getException() getRequest() getResponse() getServletConfig() getSession() getServletContext() setAttribute() removeAttribute() findAttribute() ……………<br>session     用来保存每个用户的信息,以便跟踪每个用户的操作状态     getAttribute() getId() getAttributeNames() getCreateTime() getMaxInactiveInterval() invalidate() isNew()<br>exception     反映运行的异常     getMessage()…………<br>二、JSP四大作用域</p>
-<h1 id="jsp的四大作用域为："><a href="#jsp的四大作用域为：" class="headerlink" title="jsp的四大作用域为："></a>jsp的四大作用域为：</h1><p>PageContext，ServletRequest，HttpSession,ServletContext</p>
+<p>Exception(Throwable)：在某个页面抛出异常时,将转发至JSP错误页面,提供此对象是为了在JSP中处理错误。只有在错误页面中才可使用&lt;%@page isErrorPage=“true”%&gt;</p>
+<table>
+<thead>
+<tr>
+<th align="center">Jsp内置对象</th>
+<th align="right">功能</th>
+<th align="center">主要方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">out</td>
+<td align="right">向客户端输出数据</td>
+<td align="center">print() println() flush() clear() isAutoFlush() getBufferSize() close() …………</td>
+</tr>
+<tr>
+<td align="center">request</td>
+<td align="right">向客户端请求数据</td>
+<td align="center">getAttributeNames() getCookies() getParameter() getParameterValues() setAttribute() getServletPath() …………</td>
+</tr>
+<tr>
+<td align="center">response</td>
+<td align="right">封装了jsp产生的响应,然后被发送到客户端以响应客户的请求</td>
+<td align="center">addCookie() sendRedirect() setContentType() flushBuffer() getBufferSize() getOutputStream() sendError() containsHeader()……………</td>
+</tr>
+<tr>
+<td align="center">application</td>
+<td align="right">Gryffindor</td>
+<td align="center">90</td>
+</tr>
+<tr>
+<td align="center">config</td>
+<td align="right">表示Servlet的配置,当一个Servlet初始化时,容器把某些信息通过此对象传递给这个Servlet</td>
+<td align="center">getServletContext() getServletName() getInitParameter() getInitParameterNames()……………</td>
+</tr>
+<tr>
+<td align="center">page</td>
+<td align="right">Jsp实现类的实例,它是jsp本身,通过这个可以对它进行访问</td>
+<td align="center">flush()………</td>
+</tr>
+<tr>
+<td align="center">pagecontext</td>
+<td align="right">为JSP页面包装页面的上下文。管理对属于JSP中特殊可见部分中己经命名对象的该问</td>
+<td align="center">forward() getAttribute() getException() getRequest() getResponse() getServletConfig() getSession() getServletContext() setAttribute() removeAttribute() findAttribute() ……………</td>
+</tr>
+<tr>
+<td align="center">session</td>
+<td align="right">用来保存每个用户的信息,以便跟踪每个用户的操作状态</td>
+<td align="center">getAttribute() getId() getAttributeNames() getCreateTime() getMaxInactiveInterval() invalidate() isNew()</td>
+</tr>
+<tr>
+<td align="center">exception</td>
+<td align="right">反映运行的异常</td>
+<td align="center">getMessage()…………</td>
+</tr>
+</tbody></table>
+<h1 id="二、JSP四大作用域"><a href="#二、JSP四大作用域" class="headerlink" title="二、JSP四大作用域"></a>二、JSP四大作用域</h1><p>jsp的四大作用域为：<br>PageContext，ServletRequest，HttpSession,ServletContext</p>
 <pre><code>ServletRequest域：作用范围是整个请求链（请求转发也存在）；生命周期是在service方法调用前由服务器创建，传入service方法。整个请求结束，request生命结束。
 
 HttpSession域：作用范围是一次会话。生命周期是在第一次调用request.getSession()方法时，服务器会检查是否已经有对应的session,如果没有就在内存中创建一个session并返回。当一段时间内session没有被使用（默认为30分钟），则服务器会销毁该session。如果服务器非正常关闭（强行关闭），没有到期的session也会跟着销毁。如果调用session提供的invalidate（） ，可以立即销毁session。
@@ -498,14 +774,11 @@ ServletContext域：作用范围是整个Web应用。生命周期是当Web应用
 如果把变量放到request里，就说明它的作用域是request，它的有效范围是当前请求周期。所谓请求周期，就是指从http请求发起，到服务器处理结束，返回响应的整个过程。在这个过程中可能使用forward的方式跳转了多个jsp页面，在这些页面里你都可以使用这个变量。
 
 如果把变量放到session里，就说明它的作用域是session，它的有效范围是当前会话。所谓当前会话，就是指从用户打开浏览器开始，到用户关闭浏览器这中间的过程。这个过程可能包含多个请求响应。也就是说，只要用户不关浏览器，服务器就有办法知道这些请求是一个人发起的，整个过程被称为一个会话（session），而放到会话中的变量。
-如果把变量放到application里，就说明它的作用域是application，它的有效范围是整个应用。整个应用是指从应用启动，到应用结束。我们没有说“从服务器启动，到服务器关闭”是因为一个服务器可能部署多个应用，当然你关闭了服务器，就会把上面所有的应用都关闭了。application作用域里的变量，它们的存活时间是最长的，如果不进行手工删除，它们就一直可以使用。与上述三个不同的是，application里的变量可以被所有用户共用。如果用户甲的操作修改了application中的变量，用户乙访问时得到的是修改后的值。这在其他scope中都是不会发生的，page, request, session都是完全隔离的，无论如何修改都不会影响其他
-** 三、servlet的三大作用域对象：**</code></pre><p>1.request（HttpServletRequest）</p>
-<pre><code>request是表示一个请求，只要发出一个请求就会创建一个request，它的作用域：仅在当前请求中有效。
+如果把变量放到application里，就说明它的作用域是application，它的有效范围是整个应用。整个应用是指从应用启动，到应用结束。我们没有说“从服务器启动，到服务器关闭”是因为一个服务器可能部署多个应用，当然你关闭了服务器，就会把上面所有的应用都关闭了。application作用域里的变量，它们的存活时间是最长的，如果不进行手工删除，它们就一直可以使用。与上述三个不同的是，application里的变量可以被所有用户共用。如果用户甲的操作修改了application中的变量，用户乙访问时得到的是修改后的值。这在其他scope中都是不会发生的，page, request, session都是完全隔离的，无论如何修改都不会影响其他</code></pre><h1 id="三、servlet的三大作用域对象："><a href="#三、servlet的三大作用域对象：" class="headerlink" title="** 三、servlet的三大作用域对象：**"></a>** 三、servlet的三大作用域对象：**</h1><h1 id="1-request（HttpServletRequest）"><a href="#1-request（HttpServletRequest）" class="headerlink" title="1.request（HttpServletRequest）"></a>1.request（HttpServletRequest）</h1><pre><code>request是表示一个请求，只要发出一个请求就会创建一个request，它的作用域：仅在当前请求中有效。
 
 用处：常用于服务器间同一请求不同页面之间的参数传递，常应用于表单的控件值传递。
 
-方法：request.setAttribute(); request.getAttribute(); request.removeAttribute(); request.getParameter().</code></pre><p>2.session（HttpSession）：</p>
-<pre><code>服务器会为每个会话创建一个session对象，所以session中的数据可供当前会话中所有servlet共享。
+方法：request.setAttribute(); request.getAttribute(); request.removeAttribute(); request.getParameter().</code></pre><h1 id="2-session（HttpSession）："><a href="#2-session（HttpSession）：" class="headerlink" title="2.session（HttpSession）："></a>2.session（HttpSession）：</h1><pre><code>服务器会为每个会话创建一个session对象，所以session中的数据可供当前会话中所有servlet共享。
 
 会话：用户打开浏览器会话开始，直到关闭浏览器会话才会结束。一次会话期间只会创建一个session对象。
 
@@ -524,25 +797,17 @@ session被销毁
 
 2.客户端关闭后，再也访问不到和该客户端对应的session了，它会在超时之后被销毁;
 
-3.调用session. invalidate();</code></pre><p>备注： session是服务器端对象，保存在服务器端。并且服务器可以将创建session后产生的sessionid通过一个cookie返回给客户端，以便下次验证。（session底层依赖于cookie）<br>3.application（ServletContext）：</p>
-<pre><code>tomcat启动时创建，tomcat关闭时销毁，整个web的生命周期只有一个
+3.调用session. invalidate();</code></pre><p>备注： session是服务器端对象，保存在服务器端。并且服务器可以将创建session后产生的sessionid通过一个cookie返回给客户端，以便下次验证。（session底层依赖于cookie）</p>
+<h1 id="3-application（ServletContext）："><a href="#3-application（ServletContext）：" class="headerlink" title="3.application（ServletContext）："></a>3.application（ServletContext）：</h1><pre><code>tomcat启动时创建，tomcat关闭时销毁，整个web的生命周期只有一个
 
 作用范围：所有的用户都可以取得此信息，此信息在整个服务器上被保留。Application属性范围值，只要设置一次，则所有的网页窗口都可以取得数据。ServletContext在服务器启动时创建，在服务器关闭时销毁，一个JavaWeb应用只创建一个ServletContext对象，所有的客户端在访问服务器时都共享同一个ServletContext对象;ServletContext对象一般用于在多个客户端间共享数据时使用;
 获取application对象方法（Servlet中）：</code></pre><p>ServletContext app01 = this.getServletContext();<br>app01.setAttribute(“name”, “kaixuan”);    //设置一个值进去<br>ServletContext app02 = this.getServletContext();<br>app02.getAttribute(“name”);    //获取键值对</p>
 <pre><code>ServletContext同属于JSP九大内置对象之一，故可以直接使用
-备注：服务器只会创建一个ServletContext 对象，所以app01就是app02，通过app01设置的值当然可以通过app02获取。
-
-Servlet三大作用域总结：
-
-作用域： (1)request，(2)session，(3)application
+备注：服务器只会创建一个ServletContext 对象，所以app01就是app02，通过app01设置的值当然可以通过app02获取。</code></pre><h2 id="Servlet三大作用域总结："><a href="#Servlet三大作用域总结：" class="headerlink" title="Servlet三大作用域总结："></a>Servlet三大作用域总结：</h2><pre><code>作用域： (1)request，(2)session，(3)application
 
 (1)使用作用域传递数据和存储数据
 
-(2)使用作用域传递数据时，必须掌握作用域对应的生命周期和作用范围
-
-生命周期
-
-(1) request：只限于一次请求
+(2)使用作用域传递数据时，必须掌握作用域对应的生命周期和作用范围</code></pre><h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><pre><code>(1) request：只限于一次请求
 
 (2) session：一次会话（多次请求）
 
@@ -562,22 +827,14 @@ Servlet三大作用域总结：
 
       超过会话的不活动周期时间 
 
-(3) application：项目的加载到卸载
-
-作用范围
-
-(1) requset：所有被请求转发的Servlet
+(3) application：项目的加载到卸载</code></pre><h2 id="作用范围"><a href="#作用范围" class="headerlink" title="作用范围"></a>作用范围</h2><pre><code>(1) requset：所有被请求转发的Servlet
 
 (2) session:所有的Servlet
-(3)application：所有的Servlet(换一个浏览器演示，跟session作用域区分)
-
-如何正确的选择作用域
-
-(1) request：跟当前操作功能相关
+(3)application：所有的Servlet(换一个浏览器演示，跟session作用域区分)</code></pre><h2 id="如何正确的选择作用域"><a href="#如何正确的选择作用域" class="headerlink" title="如何正确的选择作用域"></a>如何正确的选择作用域</h2><pre><code>(1) request：跟当前操作功能相关
 
 (2) session: 跟用户信息相关
 
-(3) application：跟项目全局信息相关</code></pre><p>如何正确的选择作用域不正确，会出现什么情况:<br>内存浪费</p>
+(3) application：跟项目全局信息相关</code></pre><h2 id="如何正确的选择作用域不正确，会出现什么情况"><a href="#如何正确的选择作用域不正确，会出现什么情况" class="headerlink" title="如何正确的选择作用域不正确，会出现什么情况:"></a>如何正确的选择作用域不正确，会出现什么情况:</h2><p>内存浪费</p>
 
       
 
@@ -590,7 +847,7 @@ Servlet三大作用域总结：
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/28/service和jsp的区别/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/10/28/jsp和servlet的区别和联系/">展开全文 >></a>
         </p>
       
 
@@ -732,130 +989,6 @@ Servlet三大作用域总结：
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/10/21/jsp知识梳理/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-10.21课堂笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>jsp<br>梳理回顾<br>前端开发：HTML、CSS、JS(JavaScript) 企业中前端工程师：使用前端框架(BootStrap/easyUI/VUE/Angular)开发。<br> 后端开发：JavaSE、JSP、JavaWeb(良好的稳定性、健壮性优于其它语言。企业级应用首选之一)<br> 企业中的后端工程师：使用后端框架(SpringMVC/Struts2、Spring、myBatis)开发。 “全栈工程师” C语言:工业控制、嵌入式设备(电磁炉、吸尘器、微波炉。。。)。<br> jsp JSP项目是在后台开发框架成熟前使用较多的一种JavaWeb技术，后期会逐渐过度到后台框架。 jvm只能处理 java编译的class文件。<br> JSP和后台框架 核心技术均为Servlet Servlet在jdk中的包为：javax.servlet.http.HttpServlet。<br>Servlet</p>
-<pre><code>1. jsp和servlet的区别和联系：</code></pre><blockquote>
-<pre><code>&gt;1). jsp经编译后就变成了Servlet. (JSP的本质就是Servlet，JVM只能识别java 的类(.class)，不能识别JSP的代码,Web容器将JSP的代码编译成JVM能够识别的java类)
-  2).jsp更擅长表现于 页面显示,servlet更擅长于逻辑控制. 
-  3).Servlet中没有内置对象，Jsp中的内置对象都是必须通过 HttpServletRequest对象，HttpServletResponse对象以及HttpServlet对象得到. Jsp是Servlet的一种简化， 使用Jsp只需要完成程序员需要输出到客户端的内容，Jsp中的Java脚本如何镶嵌到一个类中，由Jsp容器 完成。
-   而Servlet则是个完整的Java类，这个类的Service方法用于生成对客户端的响应。 2. 联系： JSP是Servlet技术的扩展，本质上就是Servlet的简易方式。JSP编译后是“类servlet”。   
-   Servlet和JSP最主要的不同点在于： Servlet的应用逻辑是在Java文件中，并且完全从表示层中的HTML里分离开来。（jsp里面是有html标签， servlet没有html标签） 而JSP的情况是Java和HTML可以组合成一个扩展名为.jsp的文件。(JSP=java类+HTML) JSP侧重于视图，Servlet主要用于控制逻辑。(JSP不能脱离Servlet，但Servelet可独立存在) Servlet更多的是类似于一个Controller，用来做控制。</code></pre></blockquote>
-<pre><code>servlet类中的方法 servlet中的方法 doGet()方法：用get方式传输网络数据 get方式：明文传参(地址栏显示)、传输数据较小、</code></pre><p>课堂笔记1021.md 10/21/2019<br>doPost()方法：用post方式传输网络数据 post方式：暗文传参(地址栏不显示)、传输数据较大、<br>页面跳转方式<br>页面跳转的方式分类： </p>
-<ol>
-<li>转发：foward(地址栏URL不变)<br>request.getRequestDispatcher(“hello.jsp”).forward(request，response);//页面转发</li>
-<li>重定向：redirect(地址栏URL变化)<br>response.sendRedirect(“资源的URL”); </li>
-<li>两种跳转方式异同： 转发使用的是getRequestDispatcher()方法;重定向使用的是sendRedirect(); 转发：浏览器URL的地址栏不变。重定向：浏览器URL的地址栏改变；<br>转发是服务器行为，重定向是客户端行为；<br>转发是浏览器只做了一次访问请求。重定向是浏览器做了至少两次的访问请求； 转发2次跳转之间传输的信息不会丢失，重定向2次跳转之间传输的信息会丢失（request范围）。</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/21/10.21课堂笔记/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-数据库——增删改查" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/14/数据库——增删改查/">数据库——增删改查</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/14/数据库——增删改查/" class="archive-article-date">
-  	<time datetime="2019-10-14T00:26:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#学生管理系统连接<br>1 版本：5.6&lt;-&gt;5.7 2 安装：.exe(“下一步”)、.zip安装(命令提示符中配置)。 Oracle、SQL Server、MongDB、Redis 项目与数据库连接： JAVA项目：JDBC(Java Database Bridge Connector) .NET项目：ODBC 作业：安装MySQL数据库stu，添加user表，至少有id和pwd两个字段；将学生管理系统添加数据库连接，通过 查询数据库user表的id和pwd字段，实现判断登录<br> JDBC访问数据库的步骤</p>
-<p>1.获取Connection对象，（DBConnection提供了数据库链接对象Connection）。<br> 2.sql语句<br> 3.sql语句传入Connection获取PreparedStatement对象。<br> 4.执行(execute）语句。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/14/数据库——增删改查/">展开全文 >></a>
         </p>
       
 
